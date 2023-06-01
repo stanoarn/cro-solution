@@ -203,7 +203,7 @@ Příklad obsahu adresářů před a po běhu programu.
 
 #### Poznámky
 
-Pokud správně používáte `stderr` a `stdout`, mělo by být možně přesměřovat výstup programu do vstupu dalšího programu nebo souboru a při tom stále vidíme informativní výstupy v konzpoli.
+Pokud správně používáte `stderr` a `stdout`, mělo by být možně přesměřovat výstup programu do vstupu dalšího programu nebo souboru a při tom stále vidíme informativní výstupy v konzoli.
 
 **Příklad**
 
