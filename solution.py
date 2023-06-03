@@ -4,6 +4,7 @@ import argparse
 import datetime
 import pathlib
 import json
+from os import environ
 
 VERSION = "1.0.0"
 ROOT = "/home/arnold/builds/assignment"
@@ -64,9 +65,15 @@ args = parser.parse_args(["-i", f"{ROOT}/source", "-o", f"{ROOT}/result", "--wri
 # add type hints
 indir, outdir, failed, write = args.input, args.output, args.failed, args.write
 
-if indir is None or outdir is None:
-    # print err msg
+try:
+    if indir is None:
+        indir = environ["SOURCE_DIRECTORY"]
+    if outdir is None:
+        outdir = environ["TARGET_DIRECTORY"]
+except KeyError:
+    print("Input or output missing!")
     exit(1)
+
 # check perms on dirs (they might change, so we need to check again
 # each time)
 # get files
