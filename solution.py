@@ -5,6 +5,7 @@ import datetime
 import pathlib
 import json
 from os import environ
+from sys import stderr
 
 VERSION = "1.0.0"
 ROOT = "/home/arnold/builds/assignment"
@@ -40,17 +41,12 @@ class FailedManager:
     def __del__(self) -> None:
         if self.do_write:
             self.file.close()
-        print(f"A total of {self.count} transfers has failed.")
+        print(f"A total of {self.count} transfers has failed.", file=stderr)
         if self.do_write:
-            print(
-                "The paths to offending files "
-                f"have benn written into {self.file.name}."
-            )
+            print("The paths to offending files " f"have benn written into {self.file.name}.", file=stderr)
 
     def handle_failure(self, file_name: pathlib.Path, reason: str) -> None:
-        print(
-            f"Transfer of {file_name.name} failed: {reason}\nAdding it to the list for manual review"
-        )
+        print(f"Transfer of {file_name.name} failed: {reason}\nAdding it to the list for manual review", file=stderr)
         self.list.append(file_name)
         if self.do_write:
             self.file.write(str(file_name) + "\n")
@@ -105,7 +101,7 @@ try:
     if outdir is None:
         outdir = environ["TARGET_DIRECTORY"]
 except KeyError:
-    print("Input or output missing!")
+    print("Input or output missing!", file=stderr)
     exit(1)
 
 # check perms on dirs (they might change, so we need to check again
@@ -130,12 +126,12 @@ for file in indir.glob("*.json"):
             fman.handle_failure(file, "Date mismatch")
             continue
         # determine the year and week
-        # the examples seem to suggest we don't want a week 0
+        # the examples seem to suggest we want neither week 0 nor week 54
         # best to stick to iso 8601, even though some days will end up in the "wrong" year
         # eeeeeeh
         year, week = file_date.year, get_week(file_date)
         output_path = outdir / str(year) / str(week)
-        outfile = output_path / fname
+        outfile = output_path / "-".join(fname.split("-")[1:])
         info_dict = {
             "source": str(file),
             "target": str(outfile),
@@ -152,6 +148,7 @@ for file in indir.glob("*.json"):
         # otherwise attempt to create it, do not? fail critically
 
 print(
-    f"{'Success' if fman.count == 0 else 'Failure'}: processed {total_files - fman.count}/{total_files} files"
+    f"{'Success' if fman.count == 0 else 'Failure'}: processed {total_files - fman.count}/{total_files} files",
+    file=stderr,
 )
 exit(fman.count)
