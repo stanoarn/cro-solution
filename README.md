@@ -17,7 +17,7 @@ Přečtěte si prosím zadání zapsané v dokumentu [assignment-cs](./assignmen
 ## Doporučení
 
 Pro řešení v jazyce Python je ideální, pokud vytvoříte balík a zároveň definujete konzolový program.
-Postačí opravdu jen několik řádek. Pokud je struktura vašeho projektu např.:
+Postačí opravdu jen několik řádek viz oficiální [dokumentace](https://docs.python.org/3/distutils/setupscript.html). Pokud je struktura vašeho projektu např.:
 
 ```shell
 solution/
@@ -59,7 +59,7 @@ solution --version
 solution 1.0.0
 ```
 
-Přepínač `-e` nebo `--edtable` vám pomůže při vývoji, protože vytváří jen symbolikcý odkaz a všechny změny ve zdrojovém kódu se okamžitě projeví i bez opětovné instalace balíku.
+Přepínač `-e` nebo `--editable` vám pomůže při vývoji, protože vytváří jen symbolikcý odkaz a všechny změny ve zdrojovém kódu se okamžitě projeví i bez opětovné instalace balíku.
 
 - Pro automatické formátování a řazení importů využijte nástroj [black](https://black.readthedocs.io/en/stable/) respektive [isort](https://pycqa.github.io/isort/).
 - Pokud využíváte [ViSual Studio Code](https://code.visualstudio.com/), pak se hodí [rozšíření pro Python](https://code.visualstudio.com/docs/languages/python).
