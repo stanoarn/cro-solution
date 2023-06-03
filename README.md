@@ -33,7 +33,7 @@ PROGRAM_NAME = "program"
 
 setup(
     name=PROGRAM_NAME,
-    version="0.2.0",
+    version="1.0.0",
     py_modules=[solution],
     entry_points={
         "console_scripts": [
