@@ -120,7 +120,10 @@ for file in indir.glob("*.json"):
         # check if dates match
         fname = file.parts[-1]
         fname_date = fname.split("_")[0]
-        file_date = str_to_date(fname_date)
+        try:
+            file_date = str_to_date(fname_date)
+        except ValueError:
+            file_date = None
         if file_date != result["date"]:
             # if not, store fname in review list and continue
             fman.handle_failure(file, "Date mismatch")
