@@ -56,7 +56,7 @@ Successfully installed solution-1.0.0
 
 ```powershell
 solution --version
-solution 0.3.0
+solution 1.0.0
 ```
 
 Přepínač `-e` nebo `--edtable` vám pomůže při vývoji, protože vytváří jen symbolikcý odkaz a všechny změny ve zdrojovém kódu se okamžitě projeví i bez opětovné instalace balíku.
