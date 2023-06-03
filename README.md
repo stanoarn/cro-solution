@@ -29,7 +29,7 @@ solution/
 ```python
 from setuptools import setup
 
-PROGRAM_NAME = "program"
+PROGRAM_NAME = "solution"
 
 setup(
     name=PROGRAM_NAME,
