@@ -126,7 +126,7 @@ Vaším dalším úkolem je přemístit soubory ze zdrojového adresáře `sourc
   ```powershell
   program --input .\source --output \.target
   ...
-  Success: processed 1034/1234 files.
+  Success: processed 1234/1234 files.
   ```
 
   **Příklad**
