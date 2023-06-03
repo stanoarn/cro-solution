@@ -62,17 +62,40 @@ class FailedManager:
 
 # parse args and envvars
 parser = argparse.ArgumentParser(
-    description="The program moves files from the directory specifies by the --input option to"
-    "to the directory specified by the --output option. Unless --write is specified,"
-    "the move is not actually performed."
+    description="The program moves JSON files from the directory specifies by the --input option to"
+    " the directory specified by the --output option, creating an appropriate directory structure."
+    " Unless --write is specified, the move is not actually performed."
 )
 parser.add_argument("-v", "--version", action="version", version="1.0.0")
-parser.add_argument("-i", "--input", type=pathlib.Path, action="store")
-parser.add_argument("-o", "--output", type=pathlib.Path, action="store")
-parser.add_argument("-f", "--failed", type=pathlib.Path, action="store", default="./.failed.txt")
-parser.add_argument("-w", "--write", action="store_true")
+parser.add_argument(
+    "-i",
+    "--input",
+    type=pathlib.Path,
+    action="store",
+    help="Input directory containing the JSON files",
+)
+parser.add_argument(
+    "-o",
+    "--output",
+    type=pathlib.Path,
+    action="store",
+    help="Output directory to move the files to",
+)
+parser.add_argument(
+    "-f",
+    "--failed",
+    type=pathlib.Path,
+    action="store",
+    help="File to store information about failed transfers in. If not specified, this information is not stored",
+)
+parser.add_argument(
+    "-w",
+    "--write",
+    action="store_true",
+    help="Unless specified, the write is not performed (dry run)",
+)
 
-args = parser.parse_args(["-i", f"{ROOT}/source", "-o", f"{ROOT}/result", "--write"])
+args = parser.parse_args(["-h"])
 # add type hints
 indir, outdir, failed, write = args.input, args.output, args.failed, args.write
 
@@ -86,7 +109,7 @@ except KeyError:
     exit(1)
 
 # check perms on dirs (they might change, so we need to check again
-# each time)
+# each time), nah, just check every time, assume nothing, this is the land of madness
 # get files
 fman = FailedManager(failed)
 total_files = 0
@@ -128,5 +151,7 @@ for file in indir.glob("*.json"):
         # if appropriate dir exists, move it there
         # otherwise attempt to create it, do not? fail critically
 
-print(f"{'Success' if fman.count == 0 else 'Failure'}: processed {total_files - fman.count}/{total_files} files")
+print(
+    f"{'Success' if fman.count == 0 else 'Failure'}: processed {total_files - fman.count}/{total_files} files"
+)
 exit(fman.count)
