@@ -30,21 +30,30 @@ def get_week(in_date: datetime.date) -> int:
 
 
 class FailedManager:
-    def __init__(self, file_name: pathlib.Path = pathlib.Path("./.failed.txt")) -> None:
+    def __init__(self, file_name: pathlib.Path or None = None) -> None:
         self.list = []
-        self.file = open(file_name, mode="wt")
+        self.do_write = file_name is not None
+        self.file = None
+        if self.do_write:
+            self.file = open(file_name, mode="wt")
 
     def __del__(self) -> None:
-        self.file.close()
-        print(
-            f"A total of {self.count} transfers has failed; the paths to offending files "
-            f"have benn written into {self.file.name}."
-        )
+        if self.do_write:
+            self.file.close()
+        print(f"A total of {self.count} transfers has failed.")
+        if self.do_write:
+            print(
+                "The paths to offending files "
+                f"have benn written into {self.file.name}."
+            )
 
     def handle_failure(self, file_name: pathlib.Path, reason: str) -> None:
-        print(f"Transfer of {file_name.name} failed: {reason}\nAdding it to the list for manual review")
+        print(
+            f"Transfer of {file_name.name} failed: {reason}\nAdding it to the list for manual review"
+        )
         self.list.append(file_name)
-        self.file.write(str(file_name) + "\n")
+        if self.do_write:
+            self.file.write(str(file_name) + "\n")
 
     @property
     def count(self):
