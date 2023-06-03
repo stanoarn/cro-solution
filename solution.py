@@ -23,7 +23,7 @@ def str_to_date(string: str) -> datetime.date:
 
 
 def get_week(in_date: datetime.date) -> int:
-    return int(in_date.strftime("%U")) + (1 if datetime.date(in_date.year, 1, 1).weekday() != 0 else 0)
+    return int(in_date.strftime("%W")) + (1 if datetime.date(in_date.year, 1, 1).weekday() != START_WEEKDAY else 0)
 
 
 class FailedManager:
