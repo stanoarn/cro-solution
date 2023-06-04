@@ -29,15 +29,15 @@ solution/
 ```python
 from setuptools import setup
 
-PROGRAM_NAME = "solution"
+NAME = "solution"
 
 setup(
-    name=PROGRAM_NAME,
+    name=NAME,
     version="1.0.0",
-    py_modules=[solution],
+    py_modules=[NAME],
     entry_points={
         "console_scripts": [
-            f"{PROGRAM_NAME}=solution:main",
+            f"{NAME}=solution:main",
         ],
     },
     install_requires=['tqdm']
