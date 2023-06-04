@@ -62,5 +62,5 @@ solution 1.0.0
 Přepínač `-e` nebo `--editable` vám pomůže při vývoji, protože vytváří jen symbolikcý odkaz a všechny změny ve zdrojovém kódu se okamžitě projeví i bez opětovné instalace balíku.
 
 - Pro automatické formátování a řazení importů využijte nástroj [black](https://black.readthedocs.io/en/stable/) respektive [isort](https://pycqa.github.io/isort/).
-- Pokud využíváte [ViSual Studio Code](https://code.visualstudio.com/), pak se hodí [rozšíření pro Python](https://code.visualstudio.com/docs/languages/python).
+- Pokud využíváte [Visual Studio Code](https://code.visualstudio.com/), pak se hodí [rozšíření pro Python](https://code.visualstudio.com/docs/languages/python).
 - Pro kontrolu typů můžete využít balík a nástroje [mypy](https://mypy-lang.org/) nebo Pyright např. skrze rozšření [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance). 
