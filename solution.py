@@ -4,7 +4,7 @@ import argparse
 import datetime
 import pathlib
 import json
-from os import environ
+from os import environ, devnull
 from sys import stderr
 
 VERSION = "1.0.0"
@@ -25,31 +25,23 @@ def str_to_date(string: str) -> datetime.date:
 
 
 def get_week(in_date: datetime.date) -> int:
-    return int(in_date.strftime("%W")) + (
-        1 if datetime.date(in_date.year, 1, 1).weekday() != 0 else 0
-    )
+    return int(in_date.strftime("%W")) + (1 if datetime.date(in_date.year, 1, 1).weekday() != 0 else 0)
 
 
 class FailedManager:
     def __init__(self, file_name: pathlib.Path or None = None) -> None:
         self.list = []
-        self.do_write = file_name is not None
-        self.file = None
-        if self.do_write:
-            self.file = open(file_name, mode="wt")
+        self.file = open(file_name, mode="wt")
 
     def __del__(self) -> None:
-        if self.do_write:
-            self.file.close()
+        self.file.close()
         print(f"A total of {self.count} transfers has failed.", file=stderr)
-        if self.do_write:
-            print("The paths to offending files " f"have benn written into {self.file.name}.", file=stderr)
+        print("The paths to offending files " f"have benn written into {self.file.name}.", file=stderr)
 
     def handle_failure(self, file_name: pathlib.Path, reason: str) -> None:
         print(f"Transfer of {file_name.name} failed: {reason}\nAdding it to the list for manual review", file=stderr)
         self.list.append(file_name)
-        if self.do_write:
-            self.file.write(str(file_name) + "\n")
+        self.file.write(str(file_name) + "\n")
 
     @property
     def count(self):
@@ -82,7 +74,8 @@ parser.add_argument(
     "--failed",
     type=pathlib.Path,
     action="store",
-    help="File to store information about failed transfers in. If not specified, this information is not stored",
+    help="File to store information about failed transfers in. Default is platform equivalent of /dev/null",
+    default=devnull,
 )
 parser.add_argument(
     "-w",
