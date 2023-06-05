@@ -1,3 +1,13 @@
+
+# Pokyny ke spuštění
+Program lze nainstalovat pomocí `pip install .` a následně vyvolat pomocí `python -m solution` s 
+příslušnými argumenty.
+
+Poslední část zadání jsem vypracoval jako Jupyeter notebook. Lze jej vyvolat pomocí `jupyter notebook graph.ipynb`.
+
+---
+*následuje obsah původního README.md*
+
 ---
 version: 0.1.0
 ---
