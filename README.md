@@ -4,6 +4,8 @@ Program lze nainstalovat pomocí `pip install .` a následně vyvolat pomocí `p
 příslušnými argumenty.
 
 Poslední část zadání jsem vypracoval jako Jupyeter notebook. Lze jej vyvolat pomocí `jupyter notebook graph.ipynb`.
+Knihovny nutné k jeho běhu jsem přidal do `reuirements.txt`, stačí je nainstalovat pomocí 
+`pip install -r requirements.txt`.
 
 ---
 *následuje obsah původního README.md*
