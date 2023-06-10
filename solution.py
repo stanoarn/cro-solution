@@ -175,7 +175,8 @@ def main() -> None:
         if write:
             try:
                 output_path.mkdir(exist_ok=True, parents=True)
-                file.rename(outfile)  # will not work across devices, also overwrites existing data
+                # file.rename(outfile)  # will not work across devices, also overwrites existing data
+                shutil.copy(file, outfile)  # should work across physical devices, preserve metadata etc
             except OSError as e:
                 fman.handle_failure(file, str(e))
                 continue
