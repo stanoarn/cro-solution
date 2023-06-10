@@ -36,7 +36,8 @@ def str_to_date(string: str) -> datetime.date:
 
 def get_week(in_date: datetime.date) -> int:
     """Returns the week number for a date. The values returned can be between 1 and 54."""
-    return int(in_date.strftime("%W")) + (1 if datetime.date(in_date.year, 1, 1).weekday() != 0 else 0)
+    # return int(in_date.strftime("%W")) + (1 if datetime.date(in_date.year, 1, 1).weekday() != 0 else 0)
+    return int(in_date.isocalendar().week)
 
 
 class FailedManager:
@@ -159,10 +160,8 @@ def main() -> None:
             continue
 
         # determine the year and week
-        # January 1st is always a part of the first week of the year.
-        # Slightly breaks the assignment because leap years starting
-        # with a Monday have 54 weeks
-        year, week = entry.date.year, get_week(entry.date)
+        # break the assignment, placing Jan 1 2021 into W53 of 2020
+        year, week = entry.date.isocalendar().year, get_week(entry.date)
         output_path = outdir / str(year) / f"W{week:02d}"
         outfile = output_path / "-".join(file.parts[-1].split("-")[1:])
         info_dict = {
