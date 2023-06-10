@@ -180,8 +180,8 @@ Příklad obsahu adresářů před a po běhu programu.
 
   ```powershell
   target/
-    2021/
-      W01/
+    2020/
+      W53/
           01-01_1.json
           01-01_2.json
           01-01_3.json
